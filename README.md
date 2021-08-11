@@ -47,10 +47,10 @@ After initializing the PCA9685 library and loading the Tensorflow model, the fol
 7) Starting motor #3 to move the conveyor belt, which will transport the banknote out of the machine. 
 
 ## Literature
-[Adafruit PCA9685 16-Channel Servo Driver](https://learn.adafruit.com/16-channel-pwm-servo-driver?view=all)
-[Paul McWhorter, AI on the Jetson Nano LESSON 31: Controlling Servos with the Jetson Nano using the PCA9685](https://youtu.be/8YKAtpPSEOk)
-[Dustin Franklin, NVIDIA Jetson - Hello AI World](https://github.com/dusty-nv/jetson-inference)
-[Dustin Franklin, Camera Capture Tool](https://github.com/dusty-nv/jetson-inference/blob/master/docs/pytorch-collect.md)
-[Tf2 Tutorial: Load and preprocess images](https://www.tensorflow.org/tutorials/load_data/images)
-[Tf2 Tutorial: Transfer learning and fine-tuning](https://www.tensorflow.org/tutorials/images/transfer_learning) 
-[Robert Thas John, Transfer Learning with TF 2.0](https://towardsdatascience.com/transfer-learning-with-tf-2-0-ff960901046d)
+[Adafruit PCA9685 16-Channel Servo Driver](https://learn.adafruit.com/16-channel-pwm-servo-driver?view=all)<br>
+[Paul McWhorter, AI on the Jetson Nano LESSON 31: Controlling Servos with the Jetson Nano using the PCA9685](https://youtu.be/8YKAtpPSEOk)<br>
+[Dustin Franklin, NVIDIA Jetson - Hello AI World](https://github.com/dusty-nv/jetson-inference)<br>
+[Dustin Franklin, Camera Capture Tool](https://github.com/dusty-nv/jetson-inference/blob/master/docs/pytorch-collect.md)<br>
+[Tf2 Tutorial: Load and preprocess images](https://www.tensorflow.org/tutorials/load_data/images)<br>
+[Tf2 Tutorial: Transfer learning and fine-tuning](https://www.tensorflow.org/tutorials/images/transfer_learning) <br>
+[Robert Thas John, Transfer Learning with TF 2.0](https://towardsdatascience.com/transfer-learning-with-tf-2-0-ff960901046d)<br>
