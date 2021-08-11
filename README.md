@@ -3,7 +3,7 @@ Using the NVIDIA Jetson Nano for banknote classification and to control LEGO pow
 
 [<img src="./readme_images/MachineRun.JPG">](https://youtu.be/MnLnOKctatg)
 Have a look at the [video](https://youtu.be/MnLnOKctatg) of the final working machine.<br>
-Check also the [video](https://youtu.be/MnLnOKctatg) explaining the project in detail including motor control and training/inference with the NVIDIA Jetson.
+Check also the [video](https://youtu.be/YSo6BacYehI) explaining the project in detail including motor control and training/inference with the NVIDIA Jetson.
 
 ## NVIDIA Jetson Nano Controlling LEGO Technic Power Functions' Motors and Servomotors
 A total of 4 motors and a servomotor are controlled by the NVIDIA Jetson Nano. Therefore, a [PCA9685](https://learn.adafruit.com/16-channel-pwm-servo-driver?view=all) is connected to the Jetson Nano via I2C, offering 16 PWM (pulse-width modulation) channels. Two motor bridges (or H-bridges), more specifically two L293D chips, are used to drive the motors/servomotor with the 9V provided by the 9V Lego Power functions system and the PWM control channels of the PCA9685. <br>
