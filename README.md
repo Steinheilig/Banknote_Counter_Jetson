@@ -22,8 +22,7 @@ In a nutshell, the servomotor is driving a first wheel using a overrunning or fr
 The Training.py program is used for training the network. Either transfer learning (VGG16 base) or training a simple shallow CNN from scratch (5 layers) is implemented.
 Six different classes (5, 10, 20, 50EUR, Background and Counterfeit Money) are defined and more than 500 images for each of the categories are taken und used for training. 
 The training data set is recorded under various lighting conditions, different backgrounds, angles and distances using the [camera capture tool](https://github.com/dusty-nv/jetson-inference/blob/master/docs/pytorch-collect.md) provided by the NVIDIA AI hello world tools. <br>
-[Transfer learning](https://towardsdatascience.com/transfer-learning-with-tf-2-0-ff960901046d) is used in the following; 
-### Transfer Learning
+- **Transfer Learning**<br>
 The model is derived from a pretrained (ImageNet) VGG16 network, keeping the base model weights frozen.
 Three dense layers (25,10,6) where stacked on top of the VGG16's final convolutional + maxpooling layers. 
 A softmax layer is used after the last dense layer to estimate normalized confidences for each of the classes. <br>
@@ -33,7 +32,7 @@ During training the data is augmented using slight random rotations, contrast va
 After around 10 epochs (roughly 1h per epoch) a training and validation accuracies of more than 80% are achieved. <br>
 Running more epochs with larger batch size, increased input images size and more advanced (and deeper) pretrained networks, will most probably result in better performace but would require dedicated hardware for training. <br>
 An additional video documentation of the classifier training will be provided in the future. 
-### Training Shallow CNN from Scratch
+- **Training Shallow CNN from Scratch**<br>
 Alternatively, a shallow 4 (3 convolutional, 2 dense) layer network can be trained from scratch. Data preprocessing (rescaling & augmentation) as described before.
 Training a network model from scratch given the small training set size turned out to be prone to overfitting on unrelevant features. Self-supervised pretraining (e.g. with convolutional autoenecoder) might be an option to generate more robust feature extraction and finaly a robust shallow CNN for this task. 
 
