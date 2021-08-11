@@ -60,3 +60,5 @@ After initializing the PCA9685 library and loading the Tensorflow model, the fol
 [6] [Tf2 Tutorial: Load and preprocess images](https://www.tensorflow.org/tutorials/load_data/images)<br>
 [7] [Tf2 Tutorial: Transfer learning and fine-tuning](https://www.tensorflow.org/tutorials/images/transfer_learning) <br>
 [8] [Robert Thas John, Transfer Learning with TF 2.0](https://towardsdatascience.com/transfer-learning-with-tf-2-0-ff960901046d)<br>
+[9] [NVIDIA® Jetson Nano™](https://www.nvidia.com/de-de/autonomous-machines/embedded-systems/jetson-nano/)<br>
+[10] [Jetson Nano Developer Kit](https://developer.nvidia.com/embedded/jetson-nano-developer-kit)<br>
