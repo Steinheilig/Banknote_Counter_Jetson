@@ -1,5 +1,5 @@
 # Banknote Counter - NVIDIA Jetson & LEGO Technic 
-Employing the NVIDIA Jetson Nano for banknote classification and to control LEGO power functions' motors and servomotors to feed single notes to realize a money counting LEGO MOC.
+Using the NVIDIA Jetson Nano for banknote classification and to control LEGO power functions' motors and servomotors to feed single notes to realize a money counting LEGO MOC.
 
 [<img src="./readme_images/MachineRun.JPG">](https://youtu.be/MnLnOKctatg)
 Have a look at the video of final running machine: https://youtu.be/MnLnOKctatg <br>
