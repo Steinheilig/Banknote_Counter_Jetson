@@ -8,7 +8,7 @@
 # to classify banknotes
 # - Tensorflow 2.x model
 # - transfer learning (VGG16 with ImageNet weights as base network)
-#   or simple 4 layer CNN from scratch
+#   or simple 5 layer CNN from scratch
 # - optional: continue training of a model
 #
 # Tf2 transfer learning as described in the Tf2 tutorial:
@@ -109,7 +109,7 @@ data_augmentation = tf.keras.Sequential([
 ])
 
 if not(continue_training): # if we do not contiue training a model...
- if scratch_model:    # define model // train simple CNN from scratch (3 convolution, 1 dense layer)
+ if scratch_model:    # define model // train simple CNN from scratch (3 convolution, 2 dense layers)
     model = tf.keras.Sequential([
       layers.experimental.preprocessing.Rescaling(1./255),
       data_augmentation,
