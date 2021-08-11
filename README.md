@@ -16,10 +16,10 @@ A detailed video description of LEGO Power functions cable layout, PWM control o
 - [LEGO Power Functions: Employing the Jetson Nano to Control Motor/Servomotor via PCA9685](https://youtu.be/D2gSvXo0qT8)
 
 ## LEGO Technic Machine
-In a nutshell, the servomotor is driving a first wheel using a overrunning or freewheel clutch. This first wheel pushes banknotes from a provides stack of notes. A first motor drives a second wheel which accelerates notes towards a third and final wheel. This wheel (driven by second motor) feeds single notes to a platform where a webcam (Logitec C270) is taking images from the note at the right time. A classification model infers the type of bank note based on this input image. After the note is classified a conveyor belt is used (third motor) to move the note out of the machine. Timing of the motor/servomotor control and the inference is done on the Jetson Nano. [Here's a video of final machine in action.](https://youtu.be/MnLnOKctatg)
+In a nutshell, the servomotor is driving a first wheel using an overrunning or freewheel clutch. This first wheel pushes banknotes from a provides stack of notes. A first motor drives a second wheel which accelerates notes towards a third and final wheel. This wheel (driven by second motor) feeds single notes to a platform where a webcam (Logitec C270) is taking images from the note at the right time. A classification model infers the type of bank note based on this input image. After the note is classified a conveyor belt is used (third motor) to move the note out of the machine. Timing of the motor/servomotor control and the inference is done on the Jetson Nano. [Here's a video of final machine in action.](https://youtu.be/MnLnOKctatg)
 
 ## Training a Banknote Classifier
-The Training.py program is used for training the network. Either transfer learning (VGG16 base) or training a simple shallow CNN from scratch (5 layers) is implemented.
+The **Training.py** program is used for training the network. Either transfer learning (VGG16 base) or training a simple shallow CNN from scratch (5 layers) is implemented.
 Six different classes (5, 10, 20, 50EUR, Background and Counterfeit Money) are defined and more than 500 images for each of the categories are taken und used for training. 
 The training data set is recorded under various lighting conditions, different backgrounds, angles and distances using the [camera capture tool](https://github.com/dusty-nv/jetson-inference/blob/master/docs/pytorch-collect.md) provided by the NVIDIA AI hello world tools. <br>
 - **Transfer Learning**<br>
@@ -34,9 +34,10 @@ Running more epochs with larger batch size, increased input images size and more
 An additional video documentation of the classifier training will be provided in the future. 
 - **Training Shallow CNN from Scratch**<br>
 Alternatively, a shallow 4 (3 convolutional, 2 dense) layer network can be trained from scratch. Data preprocessing (rescaling & augmentation) as described before.
-Training a network model from scratch given the small training set size turned out to be prone to overfitting on unrelevant features. Self-supervised pretraining (e.g. with convolutional autoenecoder) might be an option to generate more robust feature extraction and finaly a robust shallow CNN for this task. 
+Training a network model from scratch given the small training set size turned out to be prone to overfitting on unrelevant features. Self-supervised pretraining (e.g. with convolutional autoencoder) might be an option to generate more robust feature extraction and finally a robust shallow CNN for this task. 
 
 ## Inference with the Banknote Classifier Model
+The **Inference_MotorControl.py** code demonstrates inference with the trained model.
 The trained Tensorflow model is loaded and used for inference on video frames provided by the webcam. Due to the fixed focus of the used webcam (Logitec C270) a compromise between banknote size and sharpness in the recorded images had to be found. As a result the camera was mounted on a hand crafted LEGO mount approx. 20cm above the conveyor belt. A better camera with variable focus and zoom will most probable increase the performance of such a setup.<br>
 An additional video documentation of inference examples will be provided in the future. 
 
@@ -49,6 +50,8 @@ After initializing the PCA9685 library and loading the Tensorflow model, the fol
 5) Image recorded from the webcam
 6) Model inference of the banknote class based on the image 
 7) Starting motor #3 to move the conveyor belt, which will transport the banknote out of the machine. 
+**Inference_MotorControl.py** takes care of banknote class prediction with the loaded ANN model and controlling the motors/servomotors. 
+
 
 ## Literature
 [Adafruit PCA9685 16-Channel Servo Driver](https://learn.adafruit.com/16-channel-pwm-servo-driver?view=all)<br>
