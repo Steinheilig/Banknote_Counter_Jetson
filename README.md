@@ -1,9 +1,9 @@
 # Banknote Counter - NVIDIA Jetson & LEGO Technic 
-Using the NVIDIA Jetson Nano for banknote classification and to control LEGO power functions' motors and servomotors to feed single notes to realize a money counting LEGO MOC.
+Using the NVIDIA Jetson Nano for banknote classification and to control LEGO power functions' motors and servomotors feeding single notes to realize a money counting LEGO MOC.
 
 [<img src="./readme_images/MachineRun.JPG">](https://youtu.be/MnLnOKctatg)
-Have a look at the video of final running machine: https://youtu.be/MnLnOKctatg <br>
-Check out the video explaining the project in detail including the motor control and training/inference with Nvidia Jetson: https://youtu.be/MnLnOKctatg
+Have a look at the video of the final running machine: https://youtu.be/MnLnOKctatg <br>
+Check out the video explaining the project in detail including motor control and training/inference with the NVIDIA Jetson: https://youtu.be/MnLnOKctatg
 
 
 ## NVIDIA Jetson Nano Controlling LEGO Technic Power Functions' Motors and Servomotors
@@ -16,24 +16,24 @@ A detailed video description of LEGO Power functions cable layout, PWM control o
 - [LEGO Power Functions: Employing the Jetson Nano to Control Motor/Servomotor via PCA9685](https://youtu.be/D2gSvXo0qT8)
 
 ## LEGO Technic Machine
-In a nutshell, the servomotor is driving a first wheel using an overrunning or freewheel clutch. This first wheel pushes banknotes from a provides stack of notes. A first motor drives a second wheel which accelerates notes towards a third and final wheel. This wheel (driven by second motor) feeds single notes to a platform where a webcam (Logitec C270) is taking images from the note at the right time. A classification model infers the type of bank note based on this input image. After the note is classified a conveyor belt is used (third motor) to move the note out of the machine. Timing of the motor/servomotor control and the inference is done on the Jetson Nano. [Here's a video of final machine in action.](https://youtu.be/MnLnOKctatg)
+In a nutshell, the servomotor is driving a first wheel using an overrunning or freewheel clutch. This first wheel pushes banknotes from a provides stack of notes. A first motor drives a second wheel which accelerates notes towards a third and final wheel. This wheel (driven by second motor) feeds single notes to a platform where a webcam (Logitec C270) is taking images from the note at the right time. A classification model infers the type of bank note based on this input image. After the note is classified a conveyor belt is used (third motor) to move the note out of the machine. Timing of the motor/servomotor control and the inference is done on the Jetson Nano. [Here's a video of the final machine in action.](https://youtu.be/MnLnOKctatg)
 
 ## Training a Banknote Classifier
 The **Training.py** program is used for training the network. Either transfer learning (VGG16 base) or training a simple shallow CNN from scratch (5 layers) is implemented.
 Six different classes (5, 10, 20, 50EUR, Background and Counterfeit Money) are defined and more than 500 images for each of the categories are taken und used for training. 
-The training data set is recorded under various lighting conditions, different backgrounds, angles and distances using the [camera capture tool](https://github.com/dusty-nv/jetson-inference/blob/master/docs/pytorch-collect.md) provided by the NVIDIA AI hello world tools. <br>
+The training data set is recorded under various lighting conditions, different backgrounds, angles and distances using the [camera capture tool](https://github.com/dusty-nv/jetson-inference/blob/master/docs/pytorch-collect.md) provided by the NVIDIA AI hello world toolbox. <br>
 - **Transfer Learning**<br>
 The model is derived from a pretrained (ImageNet) VGG16 network, keeping the base model weights frozen.
-Three dense layers (25,10,6) where stacked on top of the VGG16's final convolutional + maxpooling layers. 
+Three dense layers (25,10,6) are stacked on top of the VGG16's final convolutional + maxpooling layers. 
 A softmax layer is used after the last dense layer to estimate normalized confidences for each of the classes. <br>
 For training all input images are converted to 60x60x3 and a batch size of 5 is chosen, to allow training on the Jetson Nano hardware. Furthermore, the graphical mode is deactivated (sudo init 3) to free up additional GPU/CPU memory. <br>
 During training the data is augmented using slight random rotations, contrast variation, zoom, and translations. Adam optimizer with a sparse categorical crossentropy loss is used.<br> 
-[Tensorflow 2.x with Keras](https://www.tensorflow.org/tutorials/images/transfer_learning) is used fom model training with a [95/5% split](https://www.tensorflow.org/tutorials/load_data/images) of training and validation data set sizes. 
-After around 10 epochs (roughly 1h per epoch) a training and validation accuracies of more than 80% are achieved. <br>
+[Tensorflow 2.x with Keras](https://www.tensorflow.org/tutorials/images/transfer_learning) is used for model training with a [95/5% split](https://www.tensorflow.org/tutorials/load_data/images) of training and validation data set sizes. 
+After around 10 epochs (roughly 1h per epoch) a training and validation accuracy of more than 80% is achieved. <br>
 Running more epochs with larger batch size, increased input images size and more advanced (and deeper) pretrained networks, will most probably result in better performance but would require dedicated hardware for training. <br>
 An additional video documentation of the classifier training will be provided in the future. 
 - **Training Shallow CNN from Scratch**<br>
-Alternatively, a shallow 4 (3 convolutional, 2 dense) layer network can be trained from scratch. Data preprocessing (rescaling & augmentation) as described before.
+Alternatively, a shallow 5 (3 convolutional, 2 dense) layer network can be trained from scratch. Data preprocessing (rescaling & augmentation) as described before.
 Training a network model from scratch given the small training set size turned out to be prone to overfitting on unrelevant features. Self-supervised pretraining (e.g. with convolutional autoencoder) might be an option to generate more robust feature extraction and finally a robust shallow CNN for this task. 
 
 ## Inference with the Banknote Classifier Model
@@ -49,16 +49,15 @@ After initializing the PCA9685 library and loading the Tensorflow model, the fol
 4) Starting motor #2 only for a brief time span, which will feed a single note to the webcam
 5) Image recorded from the webcam
 6) Model inference of the banknote class based on the image 
-7) Starting motor #3 to move the conveyor belt, which will transport the banknote out of the machine. 
+7) Starting motor #3 to move the conveyor belt, which will transport the banknote out of the machine. <br>
 **Inference_MotorControl.py** takes care of banknote class prediction with the loaded ANN model and controlling the motors/servomotors. 
 
-
 ## Literature
-[Adafruit PCA9685 16-Channel Servo Driver](https://learn.adafruit.com/16-channel-pwm-servo-driver?view=all)<br>
-[Paul McWhorter, AI on the Jetson Nano LESSON 31: Controlling Servos with the Jetson Nano using the PCA9685](https://youtu.be/8YKAtpPSEOk)<br>
-[Patrick Müller (2016), Take Control Over Lego Power Functions: Learn how to control Lego motors and servos with your Arduino and build your own Android app to remote control your model.](https://create.arduino.cc/projecthub/Notthemarsian/take-control-over-lego-power-functions-ee0bfa)<br>
-[Dustin Franklin, NVIDIA Jetson - Hello AI World](https://github.com/dusty-nv/jetson-inference)<br>
-[Dustin Franklin, Camera Capture Tool](https://github.com/dusty-nv/jetson-inference/blob/master/docs/pytorch-collect.md)<br>
-[Tf2 Tutorial: Load and preprocess images](https://www.tensorflow.org/tutorials/load_data/images)<br>
-[Tf2 Tutorial: Transfer learning and fine-tuning](https://www.tensorflow.org/tutorials/images/transfer_learning) <br>
-[Robert Thas John, Transfer Learning with TF 2.0](https://towardsdatascience.com/transfer-learning-with-tf-2-0-ff960901046d)<br>
+[1] [Adafruit PCA9685 16-Channel Servo Driver](https://learn.adafruit.com/16-channel-pwm-servo-driver?view=all)<br>
+[2] [Paul McWhorter, AI on the Jetson Nano LESSON 31: Controlling Servos with the Jetson Nano using the PCA9685](https://youtu.be/8YKAtpPSEOk)<br>
+[3] [Patrick Müller (2016), Take Control Over Lego Power Functions: Learn how to control Lego motors and servos with your Arduino and build your own Android app to remote control your model.](https://create.arduino.cc/projecthub/Notthemarsian/take-control-over-lego-power-functions-ee0bfa)<br>
+[4] [Dustin Franklin, NVIDIA Jetson - Hello AI World](https://github.com/dusty-nv/jetson-inference)<br>
+[5] [Dustin Franklin, Camera Capture Tool](https://github.com/dusty-nv/jetson-inference/blob/master/docs/pytorch-collect.md)<br>
+[6] [Tf2 Tutorial: Load and preprocess images](https://www.tensorflow.org/tutorials/load_data/images)<br>
+[7] [Tf2 Tutorial: Transfer learning and fine-tuning](https://www.tensorflow.org/tutorials/images/transfer_learning) <br>
+[8] [Robert Thas John, Transfer Learning with TF 2.0](https://towardsdatascience.com/transfer-learning-with-tf-2-0-ff960901046d)<br>
