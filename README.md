@@ -19,18 +19,23 @@ A detailed video description of LEGO Power functions cable layout, PWM control o
 In a nutshell, the servomotor is driving a first wheel using a overrunning or freewheel clutch. This first wheel pushes banknotes from a provides stack of notes. A first motor drives a second wheel which accelerates notes towards a third and final wheel. This wheel (driven by second motor) feeds single notes to a platform where a webcam (Logitec C270) is taking images from the note at the right time. A classification model infers the type of bank note based on this input image. After the note is classified a conveyor belt is used (third motor) to move the note out of the machine. Timing of the motor/servomotor control and the inference is done on the Jetson Nano. [Here's a video of final machine in action.](https://youtu.be/MnLnOKctatg)
 
 ## Training a Banknote Classifier
+The Training.py program is used for training the network. Either transfer learning (VGG16 base) or training a simple shallow CNN from scratch (5 layers) is implemented.
 Six different classes (5, 10, 20, 50EUR, Background and Counterfeit Money) are defined and more than 500 images for each of the categories are taken und used for training. 
 The training data set is recorded under various lighting conditions, different backgrounds, angles and distances using the [camera capture tool](https://github.com/dusty-nv/jetson-inference/blob/master/docs/pytorch-collect.md) provided by the NVIDIA AI hello world tools. <br>
 [Transfer learning](https://towardsdatascience.com/transfer-learning-with-tf-2-0-ff960901046d) is used in the following; 
-The model was derived from a pretrained (ImageNet) VGG16 network, keeping the base model weights frozen.
+### Transfer Learning
+The model is derived from a pretrained (ImageNet) VGG16 network, keeping the base model weights frozen.
 Three dense layers (25,10,6) where stacked on top of the VGG16's final convolutional + maxpooling layers. 
 A softmax layer is used after the last dense layer to estimate normalized confidences for each of the classes. <br>
 For training all input images are converted to 60x60x3 and a batch size of 5 is chosen, to allow training on the Jetson Nano hardware. Furthermore, the graphical mode is deactivated (sudo init 3) to free up additional GPU/CPU memory. <br>
 During training the data is augmented using slight random rotations, contrast variation, zoom, and translations. Adam optimizer with a sparse categorical crossentropy loss is used.<br> 
-[Tensorflow 2.x with Keras](https://www.tensorflow.org/tutorials/images/transfer_learning) is used from model training with a [95/5% split](https://www.tensorflow.org/tutorials/load_data/images) of training and validation data set sizes. 
+[Tensorflow 2.x with Keras](https://www.tensorflow.org/tutorials/images/transfer_learning) is used fom model training with a [95/5% split](https://www.tensorflow.org/tutorials/load_data/images) of training and validation data set sizes. 
 After around 10 epochs (roughly 1h per epoch) a training and validation accuracies of more than 80% are achieved. <br>
 Running more epochs with larger batch size, increased input images size and more advanced (and deeper) pretrained networks, will most probably result in better performace but would require dedicated hardware for training. <br>
 An additional video documentation of the classifier training will be provided in the future. 
+### Training Shallow CNN from Scratch
+Alternatively, a shallow 4 (3 convolutional, 2 dense) layer network can be trained from scratch. Data preprocessing (rescaling & augmentation) as described before.
+Training a network model from scratch given the small training set size turned out to be prone to overfitting on unrelevant features. Self-supervised pretraining (e.g. with convolutional autoenecoder) might be an option to generate more robust feature extraction and finaly a robust shallow CNN for this task. 
 
 ## Inference with the Banknote Classifier Model
 The trained Tensorflow model is loaded and used for inference on video frames provided by the webcam. Due to the fixed focus of the used webcam (Logitec C270) a compromise between banknote size and sharpness in the recorded images had to be found. As a result the camera was mounted on a hand crafted LEGO mount approx. 20cm above the conveyor belt. A better camera with variable focus and zoom will most probable increase the performance of such a setup.<br>
