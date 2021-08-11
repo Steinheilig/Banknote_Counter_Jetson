@@ -7,7 +7,7 @@ Check out the video explaining the project in detail including the motor control
 
 
 ## NVIDIA Jetson Nano Controlling LEGO Technic Power Functions' Motors and Servomotors
-A total of 4 motors and a servomotor are controlled by the NVIDIA Jetson Nano. Therefore, a PCA9685 is connected to the Jetson Nano via I2C, offering 16 PWM (pulse-width modulation) channels. Two motor bridges (or H-bridges), more specifically two L293D chips, are used to drive the motors/servomotor with the 9V provided by the 9V Lego Power functions system and the PWM control channels of the PCA9685. <br>
+A total of 4 motors and a servomotor are controlled by the NVIDIA Jetson Nano. Therefore, a [PCA9685](https://learn.adafruit.com/16-channel-pwm-servo-driver?view=all) is connected to the Jetson Nano via I2C, offering 16 PWM (pulse-width modulation) channels. Two motor bridges (or H-bridges), more specifically two L293D chips, are used to drive the motors/servomotor with the 9V provided by the 9V Lego Power functions system and the PWM control channels of the PCA9685. <br>
 A detailed video description of LEGO Power functions cable layout, PWM control of the motor/servomotor, etc. is given in the following:
 - [LEGO Power Functions: Cable](https://youtu.be/tz1G_6vbO7Q)
 - [LEGO Power Functions: Motor Control with PWM](https://youtu.be/gAPn_Jquxaw)
@@ -46,3 +46,11 @@ After initializing the PCA9685 library and loading the Tensorflow model, the fol
 6) Model inference of the banknote class based on the image 
 7) Starting motor #3 to move the conveyor belt, which will transport the banknote out of the machine. 
 
+## Literature
+[Adafruit PCA9685 16-Channel Servo Driver](https://learn.adafruit.com/16-channel-pwm-servo-driver?view=all)
+[Paul McWhorter, AI on the Jetson Nano LESSON 31: Controlling Servos with the Jetson Nano using the PCA9685](https://youtu.be/8YKAtpPSEOk)
+[Dustin Franklin, NVIDIA Jetson - Hello AI World](https://github.com/dusty-nv/jetson-inference)
+[Dustin Franklin, Camera Capture Tool](https://github.com/dusty-nv/jetson-inference/blob/master/docs/pytorch-collect.md)
+[Tf2 Tutorial: Load and preprocess images](https://www.tensorflow.org/tutorials/load_data/images)
+[Tf2 Tutorial: Transfer learning and fine-tuning](https://www.tensorflow.org/tutorials/images/transfer_learning) 
+[Robert Thas John, Transfer Learning with TF 2.0](https://towardsdatascience.com/transfer-learning-with-tf-2-0-ff960901046d)
