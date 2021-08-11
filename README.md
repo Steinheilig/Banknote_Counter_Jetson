@@ -30,7 +30,7 @@ For training all input images are converted to 60x60x3 and a batch size of 5 is 
 During training the data is augmented using slight random rotations, contrast variation, zoom, and translations. Adam optimizer with a sparse categorical crossentropy loss is used.<br> 
 [Tensorflow 2.x with Keras](https://www.tensorflow.org/tutorials/images/transfer_learning) is used fom model training with a [95/5% split](https://www.tensorflow.org/tutorials/load_data/images) of training and validation data set sizes. 
 After around 10 epochs (roughly 1h per epoch) a training and validation accuracies of more than 80% are achieved. <br>
-Running more epochs with larger batch size, increased input images size and more advanced (and deeper) pretrained networks, will most probably result in better performace but would require dedicated hardware for training. <br>
+Running more epochs with larger batch size, increased input images size and more advanced (and deeper) pretrained networks, will most probably result in better performance but would require dedicated hardware for training. <br>
 An additional video documentation of the classifier training will be provided in the future. 
 - **Training Shallow CNN from Scratch**<br>
 Alternatively, a shallow 4 (3 convolutional, 2 dense) layer network can be trained from scratch. Data preprocessing (rescaling & augmentation) as described before.
