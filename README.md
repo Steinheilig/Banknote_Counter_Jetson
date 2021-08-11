@@ -49,6 +49,7 @@ After initializing the PCA9685 library and loading the Tensorflow model, the fol
 ## Literature
 [Adafruit PCA9685 16-Channel Servo Driver](https://learn.adafruit.com/16-channel-pwm-servo-driver?view=all)<br>
 [Paul McWhorter, AI on the Jetson Nano LESSON 31: Controlling Servos with the Jetson Nano using the PCA9685](https://youtu.be/8YKAtpPSEOk)<br>
+[Patrick Müller (2016), Take Control Over Lego Power Functions: Learn how to control Lego motors and servos with your Arduino and build your own Android app to remote control your model.](https://create.arduino.cc/projecthub/Notthemarsian/take-control-over-lego-power-functions-ee0bfa)
 [Dustin Franklin, NVIDIA Jetson - Hello AI World](https://github.com/dusty-nv/jetson-inference)<br>
 [Dustin Franklin, Camera Capture Tool](https://github.com/dusty-nv/jetson-inference/blob/master/docs/pytorch-collect.md)<br>
 [Tf2 Tutorial: Load and preprocess images](https://www.tensorflow.org/tutorials/load_data/images)<br>
