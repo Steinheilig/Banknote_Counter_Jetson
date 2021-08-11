@@ -16,7 +16,7 @@ A detailed video description of LEGO Power functions cable layout, PWM control o
 - [LEGO Power Functions: Employing the Jetson Nano to Control Motor/Servomotor via PCA9685](https://youtu.be/D2gSvXo0qT8)
 
 ## LEGO Technic Machine
-In a nutshell, the servomotor is driving a first wheel using a overrunning or freewheel clutch. This first wheel pushes banknotes from a provides stack of notes. A first motor drives a second wheel which accelerates notes towards a third and final wheel. This wheel (driven by second motor) feeds single notes to a platform where a webcam (Logitec C270) is taking images from the note at the right time. A classification model infers the type of bank note based on this input image. After the note is classified a convey belt is used (third motor) to move the note out of the machine. Timing of the motor/servomotor control and the inference is done on the Jetson Nano. [Here's a video of final machine in action.](https://youtu.be/MnLnOKctatg)
+In a nutshell, the servomotor is driving a first wheel using a overrunning or freewheel clutch. This first wheel pushes banknotes from a provides stack of notes. A first motor drives a second wheel which accelerates notes towards a third and final wheel. This wheel (driven by second motor) feeds single notes to a platform where a webcam (Logitec C270) is taking images from the note at the right time. A classification model infers the type of bank note based on this input image. After the note is classified a conveyor belt is used (third motor) to move the note out of the machine. Timing of the motor/servomotor control and the inference is done on the Jetson Nano. [Here's a video of final machine in action.](https://youtu.be/MnLnOKctatg)
 
 ## Training a Banknote Classifier
 Six different classes (5, 10, 20, 50EUR, Background and Counterfeit Money) are defined and more than 500 images for each of the categories are taken und used for training. 
@@ -33,7 +33,7 @@ Running more epochs with larger batch size, increased input images size and more
 An additional video documentation of the classifier training will be provided in the future. 
 
 ## Inference with the Banknote Classifier Model
-The trained Tensorflow model is loaded and used for inference on video frames provided by the webcam. Due to the fixed focus of the used webcam (Logitec C270) a compromise between banknote size and sharpness in the recorded images had to be found. As a result the camera was mounted on a hand crafted LEGO mount approx. 20cm above the convey belt. A better camera with variable focus and zoom will most probable increase the performance of such a setup.<br>
+The trained Tensorflow model is loaded and used for inference on video frames provided by the webcam. Due to the fixed focus of the used webcam (Logitec C270) a compromise between banknote size and sharpness in the recorded images had to be found. As a result the camera was mounted on a hand crafted LEGO mount approx. 20cm above the conveyor belt. A better camera with variable focus and zoom will most probable increase the performance of such a setup.<br>
 An additional video documentation of inference examples will be provided in the future. 
 
 ## Banknote Counter - NVIDIA Jetson & LEGO Technic 
@@ -44,5 +44,5 @@ After initializing the PCA9685 library and loading the Tensorflow model, the fol
 4) Starting motor #2 only for a brief time span, which will feed a single note to the webcam
 5) Image recorded from the webcam
 6) Model inference of the banknote class based on the image 
-7) Starting motor #3 to move the convey belt, which will transport the banknote out of the machine. 
+7) Starting motor #3 to move the conveyor belt, which will transport the banknote out of the machine. 
 
