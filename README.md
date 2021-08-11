@@ -39,6 +39,16 @@ Training a network model from scratch given the small training set size turned o
 The **Inference_MotorControl.py** code demonstrates inference with the trained model.
 The trained Tensorflow model is loaded and used for inference on video frames provided by the webcam. Due to the fixed focus of the used webcam (Logitec C270) a compromise between banknote size and sharpness in the recorded images had to be found. As a result the camera was mounted on a hand crafted LEGO mount approx. 20cm above the conveyor belt. A better camera with variable focus and zoom will most probable increase the performance of such a setup.<br>
 An additional video documentation of inference examples will be provided in the future. 
+- **Performance Evaluation** <br>
+A accuracy of more than 80% is achieved on training and validation set on the transfer learned model. The training set consists of 3632 and the validation set of 191 labeled images with roughly (+/- 2) balanced class distributions. <br>
+The classifier is then tested with images recorded during running the banknote feeding machine. While high accurcies for the background, counterfeit money and 20EUR classes are achived. Accuracies for 5, 10, 50EUR classes are lower. Especially, the model has a hard time to distinguish notes from the 10EUR class from the other note classes. A confusion matrix is not provided to quantify this behavior.<br>
+Note, that the model is trained on the (5W) Jetson Nano device only, limiting input image size, max batch sizes and network complexity to fit into CPU/GPU memory as well as the maximum number of epochs used for model training. 
+- **Increase Performance** <br>
+To achive better model performances a couple the following issues should be addressed
+  -  better camera with variable focus and zoom 
+  -  more training data (is always better...)
+  -  network structure optimization (e.g. transfer learning with ResNet, using self-supervised pretraining,...)
+  -  extensive training on dedicated hardware (allows e.g. larger batch sizes, more epochs)
 
 ## Banknote Counter - NVIDIA Jetson & LEGO Technic 
 After initializing the PCA9685 library and loading the Tensorflow model, the following steps are performed by the Jetson Nano in a timed manner for each note to be classified
