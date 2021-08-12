@@ -30,7 +30,7 @@ During training the data is augmented using slight random rotations, contrast va
 [Tensorflow 2.x with Keras](https://www.tensorflow.org/tutorials/images/transfer_learning) is used for model training with a [95/5% split](https://www.tensorflow.org/tutorials/load_data/images) of training and validation data set sizes. 
 After around 10 epochs (roughly 1h per epoch) a training and validation accuracy of more than 80% is achieved. <br>
 Running more epochs with larger batch size, increased input images size and more advanced (and deeper) pretrained networks, will most probably result in better performance but would require dedicated hardware for training. <br>
-An additional video documentation of the classifier training will be provided in the future. 
+This [video](https://www.youtube.com/watch?v=YSo6BacYehI&t=323s) demonstrates the training data recording using the [camera capture tool](https://github.com/dusty-nv/jetson-inference/blob/master/docs/pytorch-collect.md) and the classifier training itself. 
 - **Training Shallow CNN from Scratch**<br>
 Alternatively, a shallow 5 (3 convolutional, 2 dense) layer network can be trained from scratch. Data preprocessing (rescaling & augmentation) as described before.
 Training a network model from scratch given the small training set size turned out to be prone to overfitting on unrelevant features. Self-supervised pretraining (e.g. with convolutional autoencoder) might be an option to generate more robust feature extraction and finally a robust shallow CNN for this task. 
@@ -38,10 +38,10 @@ Training a network model from scratch given the small training set size turned o
 ## Inference with the Banknote Classifier Model
 The **Inference_MotorControl.py** code demonstrates inference with the trained model.
 The trained Tensorflow model is loaded and used for inference on video frames provided by the webcam. Due to the fixed focus of the used webcam (Logitec C270) a compromise between banknote size and sharpness in the recorded images had to be found. As a result the camera was mounted on a hand crafted LEGO mount approx. 20cm above the conveyor belt. A better camera with variable focus and zoom will most probable increase the performance of such a setup.<br>
-An additional video documentation of inference examples will be provided in the future. 
+This [video](https://youtu.be/YSo6BacYehI?t=576) explains the inference part of the project. 
 - **Performance Evaluation** <br>
 A accuracy of more than 80% is achieved on training and validation set on the transfer learned model. The training set consists of 3632 and the validation set of 191 labeled images with roughly (+/- 2) balanced class distributions. <br>
-The classifier is then tested with images recorded during running the banknote feeding machine. While high accurcies for the background, counterfeit money and 20EUR classes are achived. Accuracies for 5, 10, 50EUR classes are lower. Especially, the model has a hard time to distinguish notes from the 10EUR class from the other note classes. A confusion matrix is not provided to quantify this behavior.<br>
+The classifier is then tested with images recorded during running the banknote feeding machine. An additional video documentation of inference examples will be provided in the future. While high accurcies for the background, counterfeit money and 20EUR classes are achived. Accuracies for 5, 10, 50EUR classes are lower. Especially, the model has a hard time to distinguish notes from the 10EUR class from the other note classes. A confusion matrix is not provided to quantify this behavior.<br>
 Note, that the model is trained on the (5W) Jetson Nano device only, limiting input image size, max batch sizes and network complexity to fit into CPU/GPU memory as well as the maximum number of epochs used for model training. 
 - **Increase Performance** <br>
 To achive better model performances a couple the following issues should be addressed
